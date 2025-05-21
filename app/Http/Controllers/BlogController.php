@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -12,8 +13,8 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::all();
-        return view('blogs',compact('blogs'));
+        $blogs = Blog::with('categories')->get();
+        return view('blogs', compact('blogs'));
     }
 
     /**
@@ -21,7 +22,8 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('blog-form');
+        $categories = Category::all();
+        return view('blog-form',compact('categories'));
     }
 
     /**
@@ -29,22 +31,34 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
+
         $request->validate([
-            'title'=> 'required|string|max:255',
-            'author'=> 'required|string|max:255',
-            'category'=> 'required|string|max:255',
-            'content' => 'required|string',
+            'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'category' => 'required|string|max:255',
+            'contents' => 'required|string',
+            // 'image' => 'required|image|mimes:jpeg,png,jpg|max:5000',
+
         ]);
+
+        // $filename = time() . '_image.' . $request->image->getClientOriginalExtension();
+        // $request->image->storeAs('public/images', $filename);
+
+        // $filename = time() . '_image.' . $request->image->getClientOriginalExtension();
+        // $request->image->storeAs('public/images', $filename);
+
 
         // dd($request->all());
         $blog = new Blog();
         $blog->title = $request->title;
         $blog->author = $request->author;
-        $blog->category = $request->category;
+        $blog->category_id = $request->category;
         $blog->contents = $request->contents;
+        // $blog->image = $filename;
         $blog->save();
 
-        return redirect()->back()->with('success','Blog added successfull.');
+        return redirect()->route('blog.index')->with('success', 'Blog added successfull.');
     }
 
     /**
@@ -52,8 +66,9 @@ class BlogController extends Controller
      */
     public function show($id)
     {
+        // d    d($id);
         $blog = Blog::findOrFail(id: $id);
-        return view('show',compact('blog'));
+        return view('show', compact('blog'));
     }
 
     /**

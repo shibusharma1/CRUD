@@ -1,0 +1,21 @@
+User(id,name,age,education,created_at,updated_at)
+contact(id,user_id(FK),email,phone,address,created_at,updated_at)
+blog(id(PK),user_id(FK),author,category,created_at,updated_at)
+category(id,blog_id(FK),category_name,created_at,updated_at)
+
+
+
+Relations
+
+user hasone contact
+user hasmany blogs
+category hasmany blog
+
+
+
+one to one relation
+foreign key jun table ma rakhe ni hunxa
+
+
+one to many relationship
+foreign key many 

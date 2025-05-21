@@ -11,11 +11,16 @@
   </head>
   <body>
     <div class="container">
-    
+      <a href="{{ url('blogs')}}" class=
+  'btn btn-primary mb-3'>Home</a>
     <h2>{{ $blog->title }}</h2>
     <h2>{{ $blog->author }}</h2>
     <h2>{{ $blog->category }}</h2>
+    {{-- <img src="{{ asset('public/images/', $blog->image ) }}" alt="{{ $blog->title }}"> --}}
+    {{-- <img src="{{ asset('storage/images/' . $blog->image) }}" alt="{{ $blog->title }}" style="max-width: 100%; height: auto;"> --}}
+
     <p>{{ $blog->content }}</p>
+   
       
     </div> 
     <!-- Optional JavaScript -->

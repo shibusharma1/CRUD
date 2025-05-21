@@ -36,9 +36,12 @@
 </div>
 @endif
 <div class="container">
+
   <div class="form-container">
+      <a href="{{ url('blogs')}}" class=
+  'btn btn-primary mb-3'>Home</a>
     <h2 class="form-title">Create a Blog Post</h2>
-    <form action="{{  route('blog.store') }}" method="POST">
+    <form action="{{  route('blog.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
       <div class="mb-3">
         <label for="title" class="form-label">Blog Title</label>
@@ -52,16 +55,26 @@
         <label for="category" class="form-label">Category</label>
         <select class="form-select" id="category" name="category" required>
           <option value="">-- Select Category --</option>
-          <option value="Technology">Technology</option>
+          @foreach($categories as $category)
+           <option value="{{$category->id}}">{{$category->category_name}}</option>
+            
+          @endforeach
+          {{-- <option value="Technology">Technology</option>
           <option value="Lifestyle">Lifestyle</option>
           <option value="Education">Education</option>
-          <option value="Travel">Travel</option>
+          <option value="Travel">Travel</option> --}}
         </select>
       </div>
       <div class="mb-3">
         <label for="content" class="form-label">Blog Content</label>
-        <textarea class="form-control" id="content" name="contents" rows="6" placeholder="Write your blog content here..." required></textarea>
+        <textarea class="form-control" id="content" name="contents" rows="3" placeholder="Write your blog content here..." required></textarea>
       </div>
+
+            {{-- <div class="mb-3">
+        <label for="image" class="form-label">Image</label>
+        <input type="file" class="form-control" id="image" name="image" required>
+      </div> --}}
+
       <button type="submit" class="btn btn-theme w-100">Publish Blog</button>
     </form>
   </div>
