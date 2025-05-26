@@ -13,9 +13,17 @@ category hasmany blog
 
 
 
+
+
 one to one relation
 foreign key jun table ma rakhe ni hunxa
 
 
 one to many relationship
 foreign key many 
+
+
+new task 23rd may 2025
+index(show all the blogs whose status is show in index page)
+create a registration and login page(using manual)
+create a dashboard for user(shog the all blogs, show index with its count)
